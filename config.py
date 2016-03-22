@@ -15,6 +15,7 @@ logname = 'your_log_file.log'
 
 # This is where we store users informations
 users_json = '/path/to/users.json'
+replies_json = 'path/to/replies.json'
 
 # Bot's owner info
 admin_id = 0000000
@@ -37,6 +38,9 @@ skip_pending = False
     
 with open(users_json) as jsf:    
     users = json.load(jsf)
+
+with open(replies_json) as jsf:
+    replies = json.load(jsf)
 
 
 #############################################
