@@ -1,3 +1,4 @@
+import redis
 import json
 import telebot
 from time import time, strftime
@@ -13,9 +14,11 @@ enable_debug_log = False
 logpath = '/your_log_folder/'
 logname = 'your_log_file.log'
 
-# This is where we store users informations
-users_json = '/path/to/users.json'
+# This is where we store localized texts
 replies_json = 'path/to/replies.json'
+
+# Languages supported (TWO letters code for language)
+lang_list = ['en', 'it', 'de', 'es', 'ar']
 
 # Bot's owner info
 admin_id = 0000000
@@ -25,6 +28,7 @@ admin_mail = 'your@email.com'
 main_bot_token = "your_main_bot_token"
 log_bot_token = "your_log_bot_token"
 feedback_bot_token = "your_feedback_bot_token"
+botan_token = 'your_botan_token' # Analytics with botan
 
 # True = Skip messages arrived when bot were offline
 skip_pending = False
@@ -36,8 +40,7 @@ skip_pending = False
 #                                           #     
 #############################################     
     
-with open(users_json) as jsf:    
-    users = json.load(jsf)
+db = redis.Redis("localhost", decode_responses=True, db=2)
 
 with open(replies_json) as jsf:
     replies = json.load(jsf)
@@ -55,10 +58,13 @@ known_users = 0
 global enabled_users
 enabled_users = 0
 
-for r in users:
-    if users[r]['enabled'] == 1:
-        enabled_users+= 1
-    known_users+= 1
+for k in db.scan_iter():
+    try:
+        if db.hget(k, "enabled") == "True":
+            enabled_users+= 1
+        known_users+= 1
+    except Exception:
+        pass
 
 # Main bot initializing...
 bot = telebot.TeleBot(main_bot_token)
