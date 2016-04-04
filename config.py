@@ -9,18 +9,20 @@ from time import time, strftime
 #                                           #
 #############################################
 
-# Logging to file (for debug purpose)
-enable_debug_log = False
-logpath = '/your_log_folder/'
-logname = 'your_log_file.log'
-
 # This is where we store localized texts
 replies_json = 'path/to/replies.json'
 
 # Languages supported (TWO letters code for language)
+l10n_folder = 'l10n/'
 lang_list = ['en', 'it', 'de', 'es', 'ar']
+setlang_list = "/en - English\n\
+/it - Italian\n\
+/de - Deutsch\n\
+/es - Español\n\
+/ar - \u0627\u0644\u0639\u0631\u0628\u064a\u0629 (Arabic)\n"
 
 # Bot's owner info
+bot_name = "TagAlertBot"
 admin_id = 0000000
 admin_mail = 'your@email.com'
 
@@ -36,14 +38,16 @@ skip_pending = False
 
 #############################################     
 #                                           #     
-#  OPENING JSON FILES                       #     
+#  LOADING...                               #     
 #                                           #     
 #############################################     
     
 db = redis.Redis("localhost", decode_responses=True, db=2)
 
-with open(replies_json) as jsf:
-    replies = json.load(jsf)
+replies = {}
+for l in lang_list:
+    with open(l10n_folder+l+'.json') as f:
+        replies[l] = json.load(f)
 
 
 #############################################
@@ -72,7 +76,7 @@ bot.skip_pending = skip_pending
 
 # Log bot initializing...
 log_bot = telebot.TeleBot(log_bot_token)
-log_bot.send_message(admin_id, "[%s]\n@TagAlertBot is starting." % strftime("%Y-%m-%d %H:%M:%S"))
+log_bot.send_message(admin_id, "[%s]\n@%s is starting." % (strftime("%Y-%m-%d %H:%M:%S"), bot_name))
 
 # Feedback bot initializing
 feedback_bot = telebot.TeleBot(feedback_bot_token)
