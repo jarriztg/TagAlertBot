@@ -78,27 +78,40 @@ def is_bot(username):
 
 
 # Check if is a /retrieve command
-def is_retrieve(message):
+def is_retrieve(txt):
     try:
-        return (message.text)[:9] == "/retrieve"
+        return (txt)[:9] == "/retrieve"
     except Exception:
         return False
 
 
 # Check if is a /ignore command
-def is_ignore(message):
+def is_ignore(txt):
     try:
-        return (message.text)[:8] == "/ignore_"
+        return (txt)[:8] == "/ignore_"
     except Exception:
         return False
 
 
 # Check if is a /unignore command
-def is_unignore(message):
+def is_unignore(txt):
     try:
-        return (message.text)[:10] == "/unignore_"
+        return (txt)[:10] == "/unignore_"
     except Exception:
         return False
+
+
+# Find the tags inside a message, returns a set
+# I <3 Python
+def get_tags(message):
+    res = set()
+
+    if message.entities is not None:
+        for k in message.entities:
+            if k.type == 'mention':
+                res.add(message.text[k.offset + 1 : k.offset + k.length].lower())
+
+    return res
 
 
 #############################################

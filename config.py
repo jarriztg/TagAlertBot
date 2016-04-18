@@ -12,13 +12,12 @@ from time import time, strftime
 # Multi language settings
 # http://transifex.com/zaphodias/tagalertbot/
 l10n_folder = 'l10n/' # Folder with json files
-lang_list = ['en', 'it', 'ar', 'es'] # Two letters code ONLY!
+lang_list = ['en'] # Two letters code ONLY!
 setlang_list = "/en - English\n\
-/it - Italian\n\
-/ar - \u0627\u0644\u0639\u0631\u0628\u064a\u0629 (Arabic)\n\
-/es - Español\
-\n\
 Coming soon:\n\
+it - Italian\n\
+ar - \u0627\u0644\u0639\u0631\u0628\u064a\u0629 (Arabic)\n\
+es - Español\n\
 pt - Português\n\
 bp - Português do Brasil\n\
 de - Deutsch\n"

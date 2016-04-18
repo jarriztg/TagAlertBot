@@ -6,7 +6,7 @@ from config import *
 #                                           #     
 #############################################     
     
-db = redis.Redis("localhost", decode_responses=True, db=2)
+db = redis.Redis("localhost", decode_responses=True, db=3)
 
 replies = {}
 for l in lang_list:
