@@ -44,21 +44,21 @@ This way I can be updated in every moment and check for users report even if I a
 | /credits          | Show credits for bot and translations                 |
 
 ### Requirements
-* Python 3
-    $ sudo apt-get install python3 python3-dev
+* Python 3 and pip
+`    $ sudo apt-get install python3 python3-dev python3-pip`
 
 * A Redis server __and__ his relative python's module
 
-    $ sudo apt-get install redis
-    $ sudo pip3 install redis
+`    $ sudo apt-get install redis`
+`    $ sudo pip3 install redis`
 
 * pyTelegramBotAPI module
 
-    $ sudo pip3 install pyTelegramBotAPI
+`    $ sudo pip3 install pyTelegramBotAPI`
 
 * Six module
 
-    $ sudo pip3 install six
+`    $ sudo pip3 install six`
 
 * Three Telegram's bot tokens _(for main bot, log bot, and feedback bot)_
 
